@@ -803,6 +803,38 @@ package
 					onEmitterAngleVar(comp);
 				}
 				
+				if (comp.name == "stRot")
+				{
+					val = parseFloat(xml.rotationStart.@value);
+					Main.PARTICLE_SETTINGS.stRot = val;
+					(comp as HUISlider).value = val;
+					onStartRot(comp);
+				}
+				
+				if (comp.name == "stRotVar")
+				{
+					val = parseFloat(xml.rotationStartVariance.@value);
+					Main.PARTICLE_SETTINGS.stRotVar = val;
+					(comp as HUISlider).value = val;
+					onStartRotVar(comp);
+				}
+				
+				if (comp.name == "endRot")
+				{
+					val = parseFloat(xml.rotationEnd.@value);
+					Main.PARTICLE_SETTINGS.endRot = val;
+					(comp as HUISlider).value = val;
+					onEndRot(comp);
+				}
+				
+				if (comp.name == "endRotVar")
+				{
+					val = parseFloat(xml.rotationEndVariance.@value);
+					Main.PARTICLE_SETTINGS.endRotVar = val;
+					(comp as HUISlider).value = val;
+					onEndRotVar(comp);
+				}
+
 				if (comp.name == "xPosVar") 
 				{
 					val = parseFloat(xml.sourcePositionVariance.@x);
