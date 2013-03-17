@@ -274,7 +274,6 @@ package starling.display
             if (modelViewMatrix == null)
                 modelViewMatrix = quad.transformationMatrix;
             
-            var tinted:Boolean = texture ? (quad.tinted || parentAlpha != 1.0) : false;
             var alpha:Number = parentAlpha * quad.alpha;
             var vertexID:int = mNumQuads * 4;
             
@@ -283,10 +282,9 @@ package starling.display
             {
                 this.blendMode = blendMode ? blendMode : quad.blendMode;
                 mTexture = texture;
-                mTinted = tinted;
+                mTinted = texture ? (quad.tinted || parentAlpha != 1.0) : false;
                 mSmoothing = smoothing;
-                mVertexData.setPremultipliedAlpha(
-                    texture ? texture.premultipliedAlpha : true, false); 
+                mVertexData.setPremultipliedAlpha(quad.premultipliedAlpha);
             }
             
             quad.copyVertexDataTo(mVertexData, vertexID);
@@ -299,6 +297,8 @@ package starling.display
             mNumQuads++;
         }
         
+        /** Adds another QuadBatch to this batch. Just like the 'addQuad' method, you have to
+         *  make sure that you only add batches with an equal state. */
         public function addQuadBatch(quadBatch:QuadBatch, parentAlpha:Number=1.0, 
                                      modelViewMatrix:Matrix=null, blendMode:String=null):void
         {
@@ -511,6 +511,7 @@ package starling.display
         public function get tinted():Boolean { return mTinted; }
         public function get texture():Texture { return mTexture; }
         public function get smoothing():String { return mSmoothing; }
+        public function get premultipliedAlpha():Boolean { return mVertexData.premultipliedAlpha; }
         
         private function get capacity():int { return mVertexData.numVertices / 4; }
         

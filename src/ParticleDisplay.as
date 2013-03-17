@@ -891,6 +891,30 @@ package
 					onTanAcc(comp);
 				}
 				
+				if (comp.name == "tanAccVar")
+				{
+					val = parseFloat(xml.tangentialAccelVariance.@value);
+					Main.PARTICLE_SETTINGS.tanAccVar = val;
+					(comp as HUISlider).value = val;
+					onTanAccVar(comp);
+				}
+				
+				if (comp.name == "radialAcc")
+				{
+					val = parseFloat(xml.radialAcceleration.@value);
+					Main.PARTICLE_SETTINGS.radialAcc = val;
+					(comp as HUISlider).value = val;
+					onRadAcc(comp);
+				}
+				
+				if (comp.name == "radialAccVar")
+				{
+					val = parseFloat(xml.radialAccelVariance.@value);
+					Main.PARTICLE_SETTINGS.radialAccVar = val;
+					(comp as HUISlider).value = val;
+					onRadAccVar(comp);
+				}
+				
 				if (comp.name == "maxRadius") 
 				{
 					val = parseFloat(xml.maxRadius.@value);

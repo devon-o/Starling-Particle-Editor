@@ -17,16 +17,11 @@ package starling.extensions
     
     public class PDParticleSystem extends ParticleSystem
     {
+        private const EMITTER_TYPE_GRAVITY:int = 0;
+        private const EMITTER_TYPE_RADIAL:int  = 1;
 		
-		//
-		//
-		// NOTE: For the purposes of the Starling Particle Editor - all these private variables have been exposed as public -DW
-		//
-		//
+		// THESE PRIVATE VARIABLES MADE PUBLIC FOR ACCESS FROM PARTICLEDISPLAY.AS -DW
 		
-        public const EMITTER_TYPE_GRAVITY:int = 0;
-        public const EMITTER_TYPE_RADIAL:int  = 1;
-        
         // emitter configuration                            // .pex element name
         public var mEmitterType:int;                       // emitterType
         public var mEmitterXVariance:Number;               // sourcePositionVariance x
