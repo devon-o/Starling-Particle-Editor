@@ -20,7 +20,7 @@
  *	THE SOFTWARE.
  */
 
-package  
+package com.onebyonedesign.particleeditor 
 {
 	import flash.display.Sprite;
 
@@ -48,7 +48,6 @@ package
 		public var stRotVar:Number = 0;
 		public var endRot:Number = 0;
 		public var endRotVar:Number = 0;
-		
 		
 		public var speed:Number = 100;
 		public var speedVar:Number = 30.0;
@@ -93,6 +92,7 @@ package
 		public var srcBlend:uint = 0x302;
 		public var dstBlend:uint = 0x01;
 		
+		public var savePlist:Boolean;
 		
 		public function NullSprite() 
 		{}

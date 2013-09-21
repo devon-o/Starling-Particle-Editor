@@ -21,7 +21,7 @@
  */
 
 
-package  
+package com.onebyonedesign.particleeditor
 {
 	import com.adobe.images.PNGEncoder;
 	import com.bit101.components.ComboBox;
@@ -29,6 +29,7 @@ package
 	import com.bit101.components.HUISlider;
 	import com.bit101.components.Label;
 	import com.bit101.components.Window;
+	import com.ww.PEXtoPlist;
 	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.net.FileFilter;
@@ -42,10 +43,9 @@ package
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
-	import starling.extensions.PDParticleSystem;
+	import starling.extensions.OpenPDParticleSystem;
 	import starling.textures.Texture;
 	import uk.co.soulwire.gui.SimpleGUI;
-	
 	
 	/**
 	 * The main work horse of the particle editor. This displays, updates, and modifies the particle properties
@@ -53,20 +53,19 @@ package
 	 */
 	public class ParticleDisplay extends Sprite 
 	{
-		
-		[Embed(source = "../assets/fire.pex", mimeType = "application/octet-stream")]
+		[Embed(source="../../../../assets/fire.pex", mimeType="application/octet-stream")]
 		private const DEFAULT_CONFIG:Class;
 		
-		[Embed(source = "../assets/fire_particle.png")]
+		[Embed(source="../../../../assets/fire_particle.png")]
 		public static const DEFAULT_PARTICLE:Class;
 		
-		[Embed(source = "../assets/blob.png")]
+		[Embed(source="../../../../assets/blob.png")]
 		private const BLOB:Class;
 		
-		[Embed(source = "../assets/star.png")]
+		[Embed(source="../../../../assets/star.png")]
 		private const STAR:Class;
 		
-		[Embed(source = "../assets/heart.png")]
+		[Embed(source="../../../../assets/heart.png")]
 		private const HEART:Class;
 		
 		public static var CIRCLE_DATA:BitmapData;
@@ -80,13 +79,15 @@ package
 		private var mConfig:XML;
 		
 		/** the particle system */
-		private var mParticleSystem:PDParticleSystem;
+		private var mParticleSystem:OpenPDParticleSystem;
 		
 		/** particle texture */
 		private var mTexture:Texture;
 		
+		/** file reference to download particle */
 		private var downloader:FileReference = new FileReference();
 		
+		/** UI */
 		private var mGUI:SimpleGUI;
 		
 		private var mBlendArray:Array = 
@@ -103,7 +104,10 @@ package
 			{label:"One - Dst Color", data:0x307}
 		];
 		
+		/** texture editor */
 		private var mEditor:TextureEditor;
+		
+		/** background editor */
 		private var mBGEditor:BackgroundEditor;
 		
 		public function ParticleDisplay() 
@@ -118,10 +122,9 @@ package
 			
 			mConfig = XML(new DEFAULT_CONFIG());
 			mTexture = Texture.fromBitmapData(SELECTED_DATA);
-			mParticleSystem = new PDParticleSystem(mConfig, mTexture);
+			mParticleSystem = new OpenPDParticleSystem(mConfig, mTexture);
 			mParticleSystem.emitterX = 200;
             mParticleSystem.emitterY = 300;
-            mParticleSystem.start();
             addChild(mParticleSystem);
 			
 			addEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
@@ -130,14 +133,17 @@ package
 		
 		private function onAddedToStage(event:starling.events.Event):void
         {
+			removeEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
 			stage.addEventListener(TouchEvent.TOUCH, onTouch);
 			Starling.juggler.add(mParticleSystem);
+			mParticleSystem.start();
 			
 			initUI();
         }
         
         private function onRemovedFromStage(event:starling.events.Event):void
         {
+			removeEventListener(starling.events.Event.REMOVED_FROM_STAGE, onRemovedFromStage);
             stage.removeEventListener(TouchEvent.TOUCH, onTouch);
 			mParticleSystem.stop();
             Starling.juggler.remove(mParticleSystem);
@@ -164,6 +170,7 @@ package
 			
 			mGUI.addGroup("Save");
 			mGUI.addButton("Export Particle", { name:"savePartBtn", callback:saveParticle } );
+			mGUI.addToggle("savePlist", { label:"Include .PLIST file", name:"savePlist" } );
 			mGUI.addGroup("Load");
 			mGUI.addButton("Load Particle", { name:"loadButton", callback:onLoad } );
 			mGUI.addGroup("Edit");
@@ -293,13 +300,13 @@ package
 			win.parent.removeChild(win);
 		}
 		
+		/** Create a random number between min and max with decimals decimal places */
 		private function randRange(max:Number, min:Number = 0, decimals:int = 0):Number {
 			if (min > max) return NaN;
 			var rand:Number = Math.random() * (max - min) + min;
 			var d:Number = Math.pow(10, decimals);
 			return ~~((d * rand) + 0.5) / d;
 		}
-		
 		
 		// COLUMN ONE - PARTICLES
 		private function onEmitter(o:*):void 
@@ -401,7 +408,6 @@ package
 		
 		//****************************************************
 		
-		
 		// COLUMN TWO - PARTICLE BEHAVIOR
 		private function onSpeed(o:*):void 
 		{
@@ -484,8 +490,6 @@ package
 
 		//******************************************************************
 		
-		
-		
 		// COLUMN THREE - PARTICLE COLOR
 		private function onStartRed(o:*):void 
 		{
@@ -536,9 +540,6 @@ package
 		}
 		
 		//*********************************************************
-		
-		
-		
 		
 		// COLUMN FOUR - PARTICLE COLOR VARIANCE
 		private function onStartRedVar(o:*):void 
@@ -591,9 +592,6 @@ package
 		
 		//*******************************************************************
 		
-		
-		
-		
 		private function onSourceBlend(o:*):void 
 		{
 			mConfig.blendFuncSource.@value = o.selectedItem.data;
@@ -617,7 +615,7 @@ package
 			mParticleSystem.dispose();
 			
 			mTexture = Texture.fromBitmapData(SELECTED_DATA);
-			mParticleSystem = new PDParticleSystem(mConfig, mTexture);
+			mParticleSystem = new OpenPDParticleSystem(mConfig, mTexture);
 			mParticleSystem.emitterX = ex;
 			mParticleSystem.emitterY = ey;
 			mParticleSystem.start();
@@ -625,7 +623,7 @@ package
 			addChild(mParticleSystem);
 		}
 		
-		/** Save particle texture image source and config file to .zip */
+		/** Save particle texture image source and config file and optional .plist config to .zip */
 		private function saveParticle(o:*):void
 		{
 			var zip:ZipOutput = new ZipOutput();
@@ -653,6 +651,20 @@ package
 			zip.putNextEntry(entry);
 			zip.write(filedata);
 			zip.closeEntry();
+			
+			if (Main.PARTICLE_SETTINGS.savePlist)
+			{
+				filename = "particle.plist";
+				var plist:String = PEXtoPlist.createPlist(mConfig.toXMLString());
+				filedata = new ByteArray();
+				filedata.writeUTFBytes(plist);
+				filedata.position = 0;
+				
+				entry = new ZipEntry(filename);
+				zip.putNextEntry(entry);
+				zip.write(filedata);
+				zip.closeEntry();
+			}
 			
 			// finish the zip
 			zip.finish();

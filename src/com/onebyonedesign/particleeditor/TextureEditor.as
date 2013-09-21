@@ -20,7 +20,7 @@
  *	THE SOFTWARE.
  */
 
-package  
+package com.onebyonedesign.particleeditor
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

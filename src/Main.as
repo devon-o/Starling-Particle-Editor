@@ -23,6 +23,8 @@
 
 package 
 {
+	import com.onebyonedesign.particleeditor.NullSprite;
+	import com.onebyonedesign.particleeditor.ParticleDisplay;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;

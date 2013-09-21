@@ -15,13 +15,15 @@ package starling.extensions
     import starling.textures.Texture;
     import starling.utils.deg2rad;
     
-    public class PDParticleSystem extends ParticleSystem
+	/**
+	 * This was created to make private properties of PDParticleSystem public. Would rather extend or composite, but them's the breaks.
+	 * @author Devon O.
+	 */
+    public class OpenPDParticleSystem extends ParticleSystem
     {
         private const EMITTER_TYPE_GRAVITY:int = 0;
         private const EMITTER_TYPE_RADIAL:int  = 1;
-		
-		// THESE PRIVATE VARIABLES MADE PUBLIC FOR ACCESS FROM PARTICLEDISPLAY.AS -DW
-		
+        
         // emitter configuration                            // .pex element name
         public var mEmitterType:int;                       // emitterType
         public var mEmitterXVariance:Number;               // sourcePositionVariance x
@@ -65,7 +67,7 @@ package starling.extensions
         public var mEndColor:ColorArgb;                    // finishColor
         public var mEndColorVariance:ColorArgb;            // finishColorVariance
         
-        public function PDParticleSystem(config:XML, texture:Texture)
+        public function OpenPDParticleSystem(config:XML, texture:Texture)
         {
             parseConfig(config);
             
@@ -88,11 +90,12 @@ package starling.extensions
             // for performance reasons, the random variances are calculated inline instead
             // of calling a function
             
-            var lifespan:Number = mLifespan + mLifespanVariance * (Math.random() * 2.0 - 1.0); 
-            if (lifespan <= 0.0) return;
+            var lifespan:Number = mLifespan + mLifespanVariance * (Math.random() * 2.0 - 1.0);
             
             particle.currentTime = 0.0;
-            particle.totalTime = lifespan;
+            particle.totalTime = lifespan > 0.0 ? lifespan : 0.0;
+            
+            if (lifespan <= 0.0) return;
             
             particle.x = mEmitterX + mEmitterXVariance * (Math.random() * 2.0 - 1.0);
             particle.y = mEmitterY + mEmitterYVariance * (Math.random() * 2.0 - 1.0);
@@ -255,6 +258,16 @@ package starling.extensions
             mBlendFactorSource = getBlendFunc(config.blendFuncSource);
             mBlendFactorDestination = getBlendFunc(config.blendFuncDestination);
             
+            // compatibility with future Particle Designer versions
+            // (might fix some of the uppercase/lowercase typos)
+            
+            if (isNaN(mEndSizeVariance))
+                mEndSizeVariance = getFloatValue(config.finishParticleSizeVariance);
+            if (isNaN(mLifespan))
+                mLifespan = Math.max(0.01, getFloatValue(config.particleLifespan));
+            if (isNaN(mLifespanVariance))
+                mLifespanVariance = getFloatValue(config.particleLifeSpanVariance);
+            
             function getIntValue(element:XMLList):int
             {
                 return parseInt(element.attribute("value"));
@@ -404,4 +417,3 @@ package starling.extensions
         public function set endColorVariance(value:ColorArgb):void { mEndColorVariance = value; }
     }
 }
-

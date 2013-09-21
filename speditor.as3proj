@@ -9,20 +9,25 @@
     <movie width="1024" />
     <movie height="768" />
     <movie version="11" />
-    <movie minorVersion="0" />
+    <movie minorVersion="5" />
     <movie platform="Flash Player" />
     <movie background="#232323" />
+    <movie preferredSDK="AIR 3.8.0;3.8.0;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="..\Starling-Framework\starling\src" />
+    <class path="..\Starling-Extension-Particle-System\src" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option accessible="False" />
+    <option advancedTelemetry="False" />
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
+    <option inline="False" />
     <option locale="" />
     <option loadConfig="" />
     <option optimize="True" />
@@ -40,7 +45,7 @@
     <option linkReport="" />
     <option loadExterns="" />
     <option staticLinkRSL="True" />
-    <option additional="-swf-version=13" />
+    <option additional="-swf-version=19" />
     <option compilerConstants="" />
     <option minorVersion="" />
   </build>
@@ -74,7 +79,7 @@
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
-    <!-- example: <hidden path="..." /> -->
+    <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />
@@ -84,6 +89,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Default" />
+    <option testMovieCommand="" />
   </options>
   <!-- Plugin storage -->
   <storage />
