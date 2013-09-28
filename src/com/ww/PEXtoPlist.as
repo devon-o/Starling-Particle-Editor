@@ -182,6 +182,24 @@ package com.ww
 			var str:String = extractValue($pex, $plistKey, $pexChildName, $pexAttributeKey);
 			var value:Number = Number(str) * $mult;
 			
+			// flip gravity for iOS
+			if ($plistKey == "gravityy")
+			{
+				value = -value;
+			}
+			
+			// flip angle for iOS
+			if ($plistKey == "angle")
+			{
+				value = 360 - value;
+			}
+			
+			// in plist, 'particleLifeSpan' s/b 'particleLifespan'
+			if ($plistKey == "particleLifeSpan")
+			{
+				$plistKey = "particleLifespan";
+			}
+			
 //			trace(" --- '" + str + "'" + ($mult != 1 ? " x " + $mult : "") + " => " + value);
 
 			$plist.appendChild(new XML("<key>" + $plistKey + "</key>"));
