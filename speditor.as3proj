@@ -9,7 +9,7 @@
     <movie width="1024" />
     <movie height="768" />
     <movie version="11" />
-    <movie minorVersion="5" />
+    <movie minorVersion="8" />
     <movie platform="Flash Player" />
     <movie background="#232323" />
     <movie preferredSDK="AIR 3.8.0;3.8.0;" />

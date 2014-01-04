@@ -176,6 +176,8 @@ package com.onebyonedesign.particleeditor
 			mGUI.addGroup("Edit");
 			mGUI.addButton("Edit Texture", { name:"editTexBtn", callback:editTexture } );
 			mGUI.addButton("Edit Background", { name:"editBGBtn", callback:editBackground } );
+            mGUI.addGroup("Random Settings");
+            mGUI.addButton("Randomize!", { name:"randomSettings", callback:randomizeSettings } );
 			
 			mGUI.addColumn("Particles");
 			mGUI.addGroup("Emitter Type");
@@ -206,7 +208,7 @@ package com.onebyonedesign.particleeditor
 			mGUI.addSlider("gravY", -500, 500.0, { label:"Gravity Y", callback:onGravityY, name:"gravY" } );
 			mGUI.addSlider("tanAcc", -500, 500, { label:"Tan. Acc.", callback:onTanAcc, name:"tanAcc" } );
 			mGUI.addSlider("tanAccVar", 0.0, 500, { label:"Tan. Acc. Var", callback:onTanAccVar, name:"tanAccVar" } );
-			mGUI.addSlider("radialAcc", -400.00, 400.0, { label:"Rad. Acc.", callback:onRadAcc, name:"radialAcc" } );
+			mGUI.addSlider("radialAcc", -500.00, 500.0, { label:"Rad. Acc.", callback:onRadAcc, name:"radialAcc" } );
 			mGUI.addSlider("radialAccVar", 0, 500.0, { label:"Rad. Acc. Var.", callback:onRadAccVar, name:"radialAccVar" } );
 			
 			mGUI.addGroup("Rotation (radial emitter)");
@@ -384,7 +386,7 @@ package com.onebyonedesign.particleeditor
 		
 		private function onStartRot(o:*):void
 		{
-			mConfig.angleVariance.@value = o.value;
+			mConfig.rotationStart.@value = o.value;
 			mParticleSystem.mStartRotation = o.value * Math.PI / 180;
 		}
 		
@@ -701,6 +703,147 @@ package com.onebyonedesign.particleeditor
 			mBGEditor.addEventListener(flash.events.Event.COMPLETE, onDoneBGEditing);
 			Main.PARTICLE_SETTINGS.addChild(mBGEditor);
 		}
+        
+        /** Randomize particle settings */
+        private function randomizeSettings(o:*):void
+        {
+            var randSetting:Number;
+            
+            randSetting = randRange(1000, 1, 2);
+            mConfig..maxParticles.@value = String(randSetting);
+            
+            randSetting = randRange(10, 0, 2);
+            mConfig..particleLifeSpan.@value = String(randSetting);
+            
+            randSetting = randRange(10, 0, 2);
+            mConfig..particleLifespanVariance.@value = String(randSetting);
+
+            randSetting = randRange(70, 0, 2);
+            mConfig..startParticleSize.@value = String(randSetting);
+   
+            randSetting = randRange(70, 0, 2);
+            mConfig..startParticleSizeVariance.@value = String(randSetting);
+            
+            randSetting = randRange(70, 0, 2);
+            mConfig..finishParticleSize.@value = String(randSetting);
+            
+            randSetting = randRange(70, 0, 2);
+            mConfig..FinishParticleSizeVariance.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..angle.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..angleVariance.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..rotationStart.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..rotationStartVariance.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..rotationEnd.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..rotationEndVariance.@value = String(randSetting);
+            
+            randSetting = randRange(1000, 0, 2);
+            mConfig..sourcePositionVariance.@x = String(randSetting);
+
+            randSetting = randRange(1000, 0, 2);
+            mConfig..sourcePositionVariance.@y = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..speed.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..speedVariance.@value = String(randSetting);
+            
+            randSetting = randRange(500, -500, 2);
+            mConfig..gravity.@x = String(randSetting);
+            
+            randSetting = randRange(500, -500, 2);
+            mConfig..gravity.@y = String(randSetting);
+            
+            randSetting = randRange(500, -500, 2);
+            mConfig..tangentialAcceleration.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..tangentialAccelVariance.@value = String(randSetting);
+            
+            randSetting = randRange(500, -500, 2);
+            mConfig..radialAcceleration.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..radialAccelVariance.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..maxRadius.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..maxRadiusVariance.@value = String(randSetting);
+            
+            randSetting = randRange(500, 0, 2);
+            mConfig..minRadius.@value = String(randSetting);
+            
+            randSetting = randRange(360, -360, 2);
+            mConfig..rotatePerSecond.@value = String(randSetting);
+            
+            randSetting = randRange(360, 0, 2);
+            mConfig..rotatePerSecondVariance.@value = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColor.@red = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColor.@green = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColor.@blue = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColor.@alpha = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColor.@red = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColor.@green = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColor.@blue = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColor.@alpha = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColorVariance.@red = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColorVariance.@green = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColorVariance.@blue = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..startColorVariance.@alpha = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColorVariance.@red = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColorVariance.@green = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColorVariance.@blue = String(randSetting);
+            
+            randSetting = randRange(1, 0, 2);
+            mConfig..finishColorVariance.@alpha = String(randSetting);
+            
+            
+            buildParticleFromXML(mConfig);
+        }
 		
 		/** after closing background editor panel */
 		private function onDoneBGEditing(event:flash.events.Event):void 
