@@ -121,6 +121,9 @@ package com.onebyonedesign.particleeditor
             randSetting = randRange(500, 0, 2);
             mConfig..minRadius.@value = String(randSetting);
             
+            randSetting = randRange(500, 0, 2);
+            mConfig..minRadiusVariance.@value = String(randSetting);
+            
             randSetting = randRange(360, -360, 2);
             mConfig..rotatePerSecond.@value = String(randSetting);
             
