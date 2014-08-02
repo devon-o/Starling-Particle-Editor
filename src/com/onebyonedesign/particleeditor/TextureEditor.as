@@ -52,11 +52,11 @@ package com.onebyonedesign.particleeditor
 		
 		private var mDataArray:Array = 
 		[
-			{ label:"Circle", data:ParticleDisplay.CIRCLE_DATA },
-			{ label:"Star", data:ParticleDisplay.STAR_DATA },
-			{ label:"Blob", data:ParticleDisplay.BLOB_DATA },
-			{ label:"Heart", data:ParticleDisplay.HEART_DATA },
-			{ label:"Custom", data:ParticleDisplay.CUSTOM_DATA }
+            { label:"Circle", data:ParticleView.CIRCLE_DATA },
+			{ label:"Star", data:ParticleView.STAR_DATA },
+			{ label:"Blob", data:ParticleView.BLOB_DATA },
+			{ label:"Heart", data:ParticleView.HEART_DATA },
+			{ label:"Custom", data:ParticleView.CUSTOM_DATA }
 		];
 		
 		public function TextureEditor(data:BitmapData) 
@@ -173,12 +173,12 @@ package com.onebyonedesign.particleeditor
 				h *= 64 / data.height;
 			}
 			
-			ParticleDisplay.CUSTOM_DATA.dispose();
-			ParticleDisplay.CUSTOM_DATA = new BitmapData(w, h, true, 0x00000000);
-			ParticleDisplay.CUSTOM_DATA.draw(data, mat);
-			mDataArray[3] = { label:"Custom", data:ParticleDisplay.CUSTOM_DATA };
+			ParticleView.CUSTOM_DATA.dispose();
+			ParticleView.CUSTOM_DATA = new BitmapData(w, h, true, 0x00000000);
+			ParticleView.CUSTOM_DATA.draw(data, mat);
+			mDataArray[3] = { label:"Custom", data:ParticleView.CUSTOM_DATA };
 			
-			mData = ParticleDisplay.CUSTOM_DATA;
+			mData = ParticleView.CUSTOM_DATA;
 			data.dispose();
 			showBitmap();
 		}

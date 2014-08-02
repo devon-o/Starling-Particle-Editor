@@ -23,14 +23,15 @@
 
 package 
 {
-	import com.onebyonedesign.particleeditor.NullSprite;
-	import com.onebyonedesign.particleeditor.ParticleDisplay;
-	import flash.display.Sprite;
-	import flash.display.StageAlign;
-	import flash.display.StageScaleMode;
-	import flash.events.Event;
-	import flash.geom.Rectangle;
-	import starling.core.Starling;
+    import com.onebyonedesign.particleeditor.ParticleEditor;
+    import com.onebyonedesign.particleeditor.ParticleView;
+    import com.onebyonedesign.particleeditor.SettingsModel;
+    import flash.display.Sprite;
+    import flash.display.StageAlign;
+    import flash.display.StageScaleMode;
+    import flash.events.Event;
+    import flash.geom.Rectangle;
+    import starling.core.Starling;
 	
 	/**
 	 * Entry point of particle editor
@@ -40,10 +41,14 @@ package
 	[SWF(width='1400', height='750', backgroundColor='#232323', frameRate='60')]
 	public class Main extends Sprite 
 	{
+        [Embed(source="../assets/fire.pex", mimeType="application/octet-stream")]
+		private const DEFAULT_CONFIG:Class;
 		
-		public static var PARTICLE_SETTINGS:NullSprite;
-		
+        /** Starling instance */
 		private var mStarling:Starling;
+        
+        /** Starling view port */
+        private var mViewPort:Rectangle = new Rectangle(0, 0, 400, 500);
 		
 		public function Main():void 
 		{
@@ -54,10 +59,6 @@ package
 		private function init(event:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-
-			PARTICLE_SETTINGS = new NullSprite();
-			PARTICLE_SETTINGS.x = 400;
-			addChild(PARTICLE_SETTINGS);
 			
 			initStage();
 			initParticleDisplay();
@@ -71,13 +72,26 @@ package
 		}
 		
 		private function initParticleDisplay():void {
-			mStarling = new Starling(ParticleDisplay, stage, new Rectangle(0, 0, 400, 500));
+			mStarling = new Starling(ParticleView, stage, mViewPort);
+            mStarling.addEventListener("rootCreated", onStarlingRoot);
 			mStarling.antiAliasing = 4;
 			mStarling.stage.color = 0x000000;
 			mStarling.enableErrorChecking = false;
 			mStarling.start();
 		}
 		
+        private function onStarlingRoot(event:*):void
+        {
+            mStarling.removeEventListener("rootCreated", onStarlingRoot);
+            
+            var settings:SettingsModel = new SettingsModel();
+            settings.x = mViewPort.width;
+            addChild(settings);
+            
+            var initialConfig:XML = XML(new DEFAULT_CONFIG());
+            
+            var editor:ParticleEditor = new ParticleEditor(settings, initialConfig, (mStarling.root as ParticleView));
+        }
 	}
 	
 }

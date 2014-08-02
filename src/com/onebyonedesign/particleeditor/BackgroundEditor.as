@@ -24,6 +24,7 @@ package com.onebyonedesign.particleeditor
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+    import starling.core.Starling;
 	import starling.display.Stage;
 	import uk.co.soulwire.gui.SimpleGUI;
 	
@@ -43,11 +44,11 @@ package com.onebyonedesign.particleeditor
 		public var b:Number;
 		
 		
-		public function BackgroundEditor(stage:Stage) 
+		public function BackgroundEditor() 
 		{
-			mStage = stage;
+			mStage = Starling.current.stage;
 			
-			splitColors(stage.color);
+			splitColors(mStage.color);
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy);
