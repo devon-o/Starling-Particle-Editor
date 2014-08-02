@@ -28,6 +28,7 @@
   <maxRadius value="100.00"/>
   <maxRadiusVariance value="0.00"/>
   <minRadius value="0.00"/>
+  <minRadiusVariance value="0.00"/>
   <rotatePerSecond value="0.00"/>
   <rotatePerSecondVariance value="0.00"/>
   <blendFuncSource value="770"/>

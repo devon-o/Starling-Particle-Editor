@@ -24,12 +24,13 @@
 package com.onebyonedesign.particleeditor 
 {
 	/**
-     * ...
+     * Holds and updates the XML Config for the given particle
      * @author Devon O.
      */
     public class ParticleConfiguration implements SettingsListener
     {
         
+        /** Particle configuration (.pex) */
         private var mConfig:XML;
         
         public function ParticleConfiguration(initialConfig:XML) 
@@ -37,6 +38,7 @@ package com.onebyonedesign.particleeditor
             mConfig = initialConfig;
         }
         
+        /** Randomize all particle settings */
         public function randomize():void
         {
             var randSetting:Number;
@@ -309,6 +311,11 @@ package com.onebyonedesign.particleeditor
         public function updateMinRadius(value:Number):void 
         {
             mConfig.minRadius.@value = value;
+        }
+        
+        public function updateMinRadiusVariance(value:Number):void
+        {
+            mConfig.minRadiusVariance.@value = value;
         }
         
         public function updateDegreesPerSecond(value:Number):void 

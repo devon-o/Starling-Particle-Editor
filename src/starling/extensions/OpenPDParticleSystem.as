@@ -58,6 +58,7 @@ package starling.extensions
         public var mMaxRadius:Number;                      // maxRadius
         public var mMaxRadiusVariance:Number;              // maxRadiusVariance
         public var mMinRadius:Number;                      // minRadius
+        public var mMinRadiusVariance:Number;              // minRadiusVariance
         public var mRotatePerSecond:Number;                // rotatePerSecond
         public var mRotatePerSecondVariance:Number;        // rotatePerSecondVariance
         
@@ -107,8 +108,10 @@ package starling.extensions
             particle.velocityX = speed * Math.cos(angle);
             particle.velocityY = speed * Math.sin(angle);
             
-            particle.emitRadius = mMaxRadius + mMaxRadiusVariance * (Math.random() * 2.0 - 1.0);
-            particle.emitRadiusDelta = mMaxRadius / lifespan;
+            var startRadius:Number = mMaxRadius + mMaxRadiusVariance * (Math.random() * 2.0 - 1.0);
+            var endRadius:Number   = mMinRadius + mMinRadiusVariance * (Math.random() * 2.0 - 1.0);
+            particle.emitRadius = startRadius;
+            particle.emitRadiusDelta = (endRadius - startRadius) / lifespan;
             particle.emitRotation = mEmitAngle + mEmitAngleVariance * (Math.random() * 2.0 - 1.0); 
             particle.emitRotationDelta = mRotatePerSecond + mRotatePerSecondVariance * (Math.random() * 2.0 - 1.0); 
             particle.radialAcceleration = mRadialAcceleration + mRadialAccelerationVariance * (Math.random() * 2.0 - 1.0);
@@ -171,12 +174,9 @@ package starling.extensions
             if (mEmitterType == EMITTER_TYPE_RADIAL)
             {
                 particle.emitRotation += particle.emitRotationDelta * passedTime;
-                particle.emitRadius   -= particle.emitRadiusDelta   * passedTime;
+                particle.emitRadius   += particle.emitRadiusDelta   * passedTime;
                 particle.x = mEmitterX - Math.cos(particle.emitRotation) * particle.emitRadius;
                 particle.y = mEmitterY - Math.sin(particle.emitRotation) * particle.emitRadius;
-                
-                if (particle.emitRadius < mMinRadius)
-                    particle.currentTime = particle.totalTime;
             }
             else
             {
@@ -249,6 +249,7 @@ package starling.extensions
             mMaxRadius = getFloatValue(config.maxRadius);
             mMaxRadiusVariance = getFloatValue(config.maxRadiusVariance);
             mMinRadius = getFloatValue(config.minRadius);
+            mMinRadiusVariance = getFloatValue(config.minRadiusVariance);
             mRotatePerSecond = deg2rad(getFloatValue(config.rotatePerSecond));
             mRotatePerSecondVariance = deg2rad(getFloatValue(config.rotatePerSecondVariance));
             mStartColor = getColor(config.startColor);
@@ -267,6 +268,8 @@ package starling.extensions
                 mLifespan = Math.max(0.01, getFloatValue(config.particleLifespan));
             if (isNaN(mLifespanVariance))
                 mLifespanVariance = getFloatValue(config.particleLifeSpanVariance);
+            if (isNaN(mMinRadiusVariance))
+                mMinRadiusVariance = 0.0;
             
             function getIntValue(element:XMLList):int
             {
@@ -293,16 +296,16 @@ package starling.extensions
                 var value:int = getIntValue(element);
                 switch (value)
                 {
-                    case 0:     return Context3DBlendFactor.ZERO; break;
-                    case 1:     return Context3DBlendFactor.ONE; break;
-                    case 0x300: return Context3DBlendFactor.SOURCE_COLOR; break;
-                    case 0x301: return Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR; break;
-                    case 0x302: return Context3DBlendFactor.SOURCE_ALPHA; break;
-                    case 0x303: return Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA; break;
-                    case 0x304: return Context3DBlendFactor.DESTINATION_ALPHA; break;
-                    case 0x305: return Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA; break;
-                    case 0x306: return Context3DBlendFactor.DESTINATION_COLOR; break;
-                    case 0x307: return Context3DBlendFactor.ONE_MINUS_DESTINATION_COLOR; break;
+                    case 0:     return Context3DBlendFactor.ZERO;
+                    case 1:     return Context3DBlendFactor.ONE;
+                    case 0x300: return Context3DBlendFactor.SOURCE_COLOR;
+                    case 0x301: return Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR;
+                    case 0x302: return Context3DBlendFactor.SOURCE_ALPHA;
+                    case 0x303: return Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA;
+                    case 0x304: return Context3DBlendFactor.DESTINATION_ALPHA;
+                    case 0x305: return Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA;
+                    case 0x306: return Context3DBlendFactor.DESTINATION_COLOR;
+                    case 0x307: return Context3DBlendFactor.ONE_MINUS_DESTINATION_COLOR;
                     default:    throw new ArgumentError("unsupported blending function: " + value);
                 }
             }
@@ -397,6 +400,9 @@ package starling.extensions
 
         public function get minRadius():Number { return mMinRadius; }
         public function set minRadius(value:Number):void { mMinRadius = value; }
+
+        public function get minRadiusVariance():Number { return mMinRadiusVariance; }
+        public function set minRadiusVariance(value:Number):void { mMinRadiusVariance = value; }
 
         public function get rotatePerSecond():Number { return mRotatePerSecond; }
         public function set rotatePerSecond(value:Number):void { mRotatePerSecond = value; }

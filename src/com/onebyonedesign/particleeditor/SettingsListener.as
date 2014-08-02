@@ -57,6 +57,7 @@ package com.onebyonedesign.particleeditor
         function updateMaxRadius(value:Number):void;
         function updateMaxRadiusVariance(value:Number):void;
         function updateMinRadius(value:Number):void;
+        function updateMinRadiusVariance(value:Number):void;
         function updateDegreesPerSecond(value:Number):void;
         function updateDegreesPerSecondVariance(value:Number):void;
 		

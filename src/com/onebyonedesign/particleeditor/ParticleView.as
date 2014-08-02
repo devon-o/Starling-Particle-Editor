@@ -247,6 +247,11 @@ package com.onebyonedesign.particleeditor
 			mParticleSystem.mMinRadius = value;
         }
         
+        public function updateMinRadiusVariance(value:Number):void
+        {
+            mParticleSystem.mMinRadiusVariance = value;
+        }
+        
         public function updateDegreesPerSecond(value:Number):void 
         {
 			mParticleSystem.mRotatePerSecond = value * Math.PI / 180;

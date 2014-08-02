@@ -36,65 +36,66 @@ package com.onebyonedesign.particleeditor
 		
 		private var _xPosVar:Number = 0.0;
 		private var _yPosVar:Number = 0.0;
-		private var _maxParts:Number = 500;
+		private var _maxParts:Number = 500.0;
 		private var _lifeSpan:Number = 2.0;
 		private var _lifeSpanVar:Number = 1.9;
 		private var _startSize:Number = 70.0;
 		private var _startSizeVar:Number = 49.53;
 		private var _finishSize:Number = 10.0;
 		private var _finishSizeVar:Number = 5.0;
-		private var _emitAngle:Number = 270;
-		private var _emitAngleVar:Number = 0;
+		private var _emitAngle:Number = 270.0;
+		private var _emitAngleVar:Number = 0.0;
 		
-		private var _stRot:Number = 0;
-		private var _stRotVar:Number = 0;
-		private var _endRot:Number = 0;
-		private var _endRotVar:Number = 0;
+		private var _stRot:Number = 0.0;
+		private var _stRotVar:Number = 0.0;
+		private var _endRot:Number = 0.0;
+		private var _endRotVar:Number = 0.0;
 		
 		private var _speed:Number = 100;
 		private var _speedVar:Number = 30.0;
-		private var _gravX:Number = 0;
-		private var _gravY:Number = 0;
-		private var _tanAcc:Number = 0;
-		private var _tanAccVar:Number = 0;
+		private var _gravX:Number = 0.0;
+		private var _gravY:Number = 0.0;
+		private var _tanAcc:Number = 0.0;
+		private var _tanAccVar:Number = 0.0;
 		private var _radialAcc:Number = 0.0;
 		private var _radialAccVar:Number = 0.0;
 		
 		private var _emitterType:int = 0;
 		
 		private var _maxRadius:Number = 100;
-		private var _maxRadiusVar:Number = 0;
-		private var _minRadius:Number = 0;
-		private var _degPerSec:Number = 0;
-		private var _degPerSecVar:Number = 0;
+		private var _maxRadiusVar:Number = 0.0;
+		private var _minRadius:Number = 0.0;
+        private var _minRadiusVar:Number = 0.0;
+		private var _degPerSec:Number = 0.0;
+		private var _degPerSecVar:Number = 0.0;
 		
 		
 		// <startColor red="1.00" green="0.31" blue="0.00" alpha="0.62"/>
-		private var _sr:Number = 1;
+		private var _sr:Number = 1.0;
 		private var _sg:Number = .31;
-		private var _sb:Number = 0;
+		private var _sb:Number = 0.0;
 		private var _sa:Number = .62;
 		
 		// <finishColor red="1.00" green="0.31" blue="0.00" alpha="0.00"/>
 		private var _fr:Number = 1.0;
 		private var _fg:Number = .31;
-		private var _fb:Number = 0;
-		private var _fa:Number = 0;
+		private var _fb:Number = 0.0;
+		private var _fa:Number = 0.0;
 		
-		private var _svr:Number = 0;
-		private var _svg:Number = 0;
-		private var _svb:Number = 0;
-		private var _sva:Number = 0;
+		private var _svr:Number = 0.0;
+		private var _svg:Number = 0.0;
+		private var _svb:Number = 0.0;
+		private var _sva:Number = 0.0;
 		
-		private var _fvr:Number = 0;
-		private var _fvg:Number = 0;
-		private var _fvb:Number = 0;
-		private var _fva:Number = 0;
+		private var _fvr:Number = 0.0;
+		private var _fvg:Number = 0.0;
+		private var _fvb:Number = 0.0;
+		private var _fva:Number = 0.0;
 		
 		private var _srcBlend:uint = 0x302;
 		private var _dstBlend:uint = 0x01;
 		
-		private var _savePlist:Boolean;
+		private var _savePlist:Boolean = false;
 		
 		public function SettingsModel() 
 		{
@@ -508,6 +509,21 @@ package com.onebyonedesign.particleeditor
             for each(var listener:SettingsListener in mListeners)
             {
                 listener.updateMinRadius(value);
+            }
+        }
+        
+        public function get minRadiusVar():Number
+        {
+            return _minRadiusVar;
+        }
+        
+        public function set minRadiusVar(value:Number):void
+        {
+            _minRadiusVar = value;
+            
+            for each(var listener:SettingsListener in mListeners)
+            {
+                listener.updateMinRadiusVariance(value);
             }
         }
         

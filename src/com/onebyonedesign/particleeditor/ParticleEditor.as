@@ -149,6 +149,7 @@ package com.onebyonedesign.particleeditor
 			mGUI.addSlider("maxRadius", 0, 500.0, { label:"Max Radius", name:"maxRadius" } );
 			mGUI.addSlider("maxRadiusVar", 0, 500.0, { label:"Max Rad Variance", name:"maxRadiusVar" } );
 			mGUI.addSlider("minRadius", 0, 500.0, { label:"Min Radius", name:"minRadius" } );
+            mGUI.addSlider("minRadiusVar", 0, 500.0, { label:"Min Rad Variance", name:"minRadiusVar" } );
 			mGUI.addSlider("degPerSec", -360.0, 360.0, { label:"Deg/Sec", name:"degPerSec" } );
 			mGUI.addSlider("degPerSecVar", 0.0, 360.0, { label:"Deg/Sec Var.", name:"degPerSecVar" } );
 			
@@ -517,6 +518,11 @@ package com.onebyonedesign.particleeditor
                     case "minRadius" :
                         val = parseFloat(xml.minRadius.@value);
                         mSettings.minRadius = val;
+                        break;
+                        
+                    case "minRadiusVar" :
+                        val = parseFloat(xml.minRadiusVariance.@value);
+                        mSettings.minRadiusVar = val;
                         break;
                         
                     case "degPerSec" :
