@@ -64,6 +64,9 @@ package com.onebyonedesign.particleeditor
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			initUI();
+            
+            //HACK
+            x -= 210; // this.width is incorrect
 		}
 		
 		private function initUI():void 

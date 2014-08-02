@@ -82,6 +82,9 @@ package com.onebyonedesign.particleeditor
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			initUI();
 			initBmpDisplay();
+            
+            // HACK
+            x -= this.width;
 		}
 		
 		private function initUI():void 

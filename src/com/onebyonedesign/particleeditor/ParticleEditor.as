@@ -314,7 +314,11 @@ package com.onebyonedesign.particleeditor
 			if ((mBGEditor)) 
                 onDoneBGEditing(null);
 			mTexEditor = new TextureEditor(mParticleView.particleData);
-			mTexEditor.y = mSettings.height;
+            
+            // Hack to get window below Particle display
+            // tex editor x pos set by the editor in init method
+			mTexEditor.y = 510;
+            
 			mTexEditor.addEventListener(Event.COMPLETE, onDoneEditing);
 			mSettings.addChild(mTexEditor);
 		}
@@ -338,7 +342,11 @@ package com.onebyonedesign.particleeditor
 			if ((mTexEditor)) 
                 onDoneEditing(null);
 			mBGEditor = new BackgroundEditor();
-			mBGEditor.y = mSettings.height;
+            
+            // Hack to get window below Particle display
+            // bg editor x pos set by the editor in init method
+			mBGEditor.y = 510;
+            
 			mBGEditor.addEventListener(Event.COMPLETE, onDoneBGEditing);
 			mSettings.addChild(mBGEditor);
 		}
