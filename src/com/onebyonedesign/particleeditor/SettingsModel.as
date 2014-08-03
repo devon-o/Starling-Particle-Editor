@@ -159,6 +159,9 @@ package com.onebyonedesign.particleeditor
         
         public function set lifeSpan(value:Number):void 
         {
+            if (isNaN(value))
+                value = 0.0;
+                
             _lifeSpan = value;
             
             for each(var listener:SettingsListener in mListeners)
@@ -174,6 +177,9 @@ package com.onebyonedesign.particleeditor
         
         public function set lifeSpanVar(value:Number):void 
         {
+            if (isNaN(value))
+                value = 0.0;
+                
             _lifeSpanVar = value;
             
             for each(var listener:SettingsListener in mListeners)
@@ -234,6 +240,9 @@ package com.onebyonedesign.particleeditor
         
         public function set finishSizeVar(value:Number):void 
         {
+            if (isNaN(value))
+                value = 0.0;
+                
             _finishSizeVar = value;
             
             for each(var listener:SettingsListener in mListeners)
@@ -519,6 +528,9 @@ package com.onebyonedesign.particleeditor
         
         public function set minRadiusVar(value:Number):void
         {
+            if (isNaN(value))
+                value = 0.0;
+                
             _minRadiusVar = value;
             
             for each(var listener:SettingsListener in mListeners)
