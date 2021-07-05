@@ -10,3 +10,7 @@ This project depends on:
 the Starling Framework: https://github.com/PrimaryFeather/Starling-Framework  
 	
 the Starling Particle Extension: https://github.com/PrimaryFeather/Starling-Extension-Particle-System
+
+
+
+A new and improved version with Windows support here: https://github.com/2jfw/Starling-Particle-Editor Thank you [2jfw](https://github.com/2jfw)
